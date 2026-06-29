@@ -1,0 +1,164 @@
+.problem {
+  padding: 120px 0;
+  background: var(--white);
+}
+
+.problem-header {
+  display: none;
+  margin-bottom: 40px;
+}
+
+.problem-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.problem-text {
+  max-width: 520px;
+}
+
+.problem-lead {
+  font-family: var(--font-serif);
+  font-size: 1.375rem;
+  font-weight: 400;
+  color: var(--gray-600);
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.problem-list {
+  list-style: none;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.problem-list-item {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  font-size: 1.0625rem;
+  font-weight: 400;
+  color: var(--gray-800);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--gray-100);
+  line-height: 1.6;
+}
+
+.problem-dash {
+  color: var(--blue);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.problem-conclusion {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 8px;
+}
+
+.problem-conclusion p {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--gray-600);
+  line-height: 1.8;
+}
+
+.problem-conclusion strong {
+  font-weight: 600;
+  color: var(--black);
+}
+
+.problem-image-wrap {
+  position: relative;
+}
+
+.problem-photo {
+  width: 100%;
+  aspect-ratio: 4/5;
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.problem-image-accent {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 60%;
+  height: 60%;
+  background: var(--blue-tint);
+  border-radius: var(--radius-lg);
+  z-index: -1;
+}
+
+@media (max-width: 960px) {
+  .problem-header {
+    display: block;
+  }
+
+  .problem-label-inline,
+  .problem-divider-inline,
+  .problem-title-inline {
+    display: none;
+  }
+
+  .problem-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .problem-text {
+    max-width: 100%;
+    order: 2;
+  }
+
+  .problem-image-wrap {
+    order: 1;
+  }
+
+  .problem-photo {
+    aspect-ratio: 16/9;
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .problem {
+    padding: 72px 0;
+  }
+
+  .problem-lead {
+    font-size: 1.2rem;
+    margin-bottom: 24px;
+  }
+
+  .problem-list-item {
+    font-size: 0.9375rem;
+    padding: 12px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .problem {
+    padding: 60px 0;
+  }
+
+  .problem-inner {
+    gap: 32px;
+  }
+
+  .problem-lead {
+    font-size: 1.1rem;
+  }
+
+  .problem-photo {
+    aspect-ratio: 4/3;
+    min-height: 180px;
+  }
+}
