@@ -55,19 +55,6 @@ export default function QuoteForm() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
-    try {
-      await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode({
-          'form-name': 'airport-transfer-request',
-          campaignType: 'Airport Transportation',
-          ...form,
-        }),
-      })
-    } catch (error) {
-      console.warn('Netlify submission failed (only works on deployed Netlify URLs):', error)
-    }
 
     const templateParams = {
       campaignType: 'Airport Transportation',
@@ -87,17 +74,39 @@ export default function QuoteForm() {
     }
 
     try {
+      const response = await fetch(window.location.pathname, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({
+          'form-name': 'airport-transfer-request',
+          campaignType: 'Airport Transportation',
+          ...form,
+        }),
+      })
+      if (!response.ok) {
+        throw new Error(`Netlify form POST failed with status ${response.status}`)
+      }
+      console.log('Netlify submission complete')
+    } catch (netlifyError) {
+      console.warn('Netlify submission failed, continuing to EmailJS:', netlifyError)
+    }
+
+    try {
       await emailjs.send(
         'service_3ft34fv',
         'template_xpozite',
         templateParams,
         'OZo1S52ylqKZv5AWM'
       )
+      console.log('EmailJS submission complete')
       setSubmitted(true)
       setForm(defaultForm)
-    } catch (error) {
-      console.error('EmailJS submission failed:', error)
-      alert('Submission failed')
+    } catch (emailError) {
+      console.error('EmailJS submission failed:', emailError)
+      alert(
+        'Email submission failed: ' +
+        (emailError?.text || emailError?.message || JSON.stringify(emailError))
+      )
     } finally {
       setLoading(false)
     }
