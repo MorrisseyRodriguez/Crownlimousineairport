@@ -95,8 +95,7 @@ export default function QuoteForm() {
       await window.emailjs.send(
         'service_3ft34fv',
         'template_xpozite',
-        templateParams,
-        'OZo1S52ylqKZv5AWM'
+        templateParams
       )
       console.log('EmailJS submission complete')
       setSubmitted(true)
