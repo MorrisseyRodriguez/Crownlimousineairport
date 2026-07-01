@@ -25,6 +25,7 @@ const transferTypes = [
 ]
 
 const defaultForm = {
+  campaignType: 'Airport Transportation',
   name: '',
   phone: '',
   email: '',
@@ -58,12 +59,44 @@ export default function QuoteForm() {
       await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode({ 'form-name': 'airport-transfer-request', ...form }),
+        body: encode({
+          'form-name': 'airport-transfer-request',
+          campaignType: 'Airport Transportation',
+          ...form,
+        }),
       })
+    } catch (error) {
+      console.warn('Netlify submission failed (only works on deployed Netlify URLs):', error)
+    }
+
+    const templateParams = {
+      campaignType: 'Airport Transportation',
+      name: form.name || 'Not provided',
+      phone: form.phone || 'Not provided',
+      email: form.email || 'Not provided',
+      date: form.date || 'Not provided',
+      serviceType: form.airport || 'Not provided',
+      vehicleType: form.vehicleType || 'Not provided',
+      passengers: form.passengers || 'Not provided',
+      pickup: form.pickup || 'Not provided',
+      destination: form.destination || 'Not provided',
+      notes: [
+        form.transferType ? `Transfer Type: ${form.transferType}` : '',
+        form.notes ? `Notes: ${form.notes}` : '',
+      ].filter(Boolean).join('\n') || 'None',
+    }
+
+    try {
+      await emailjs.send(
+        'service_3ft34fv',
+        'template_xpozite',
+        templateParams,
+        'OZo1S52ylqKZv5AWM'
+      )
       setSubmitted(true)
       setForm(defaultForm)
     } catch (error) {
-      console.error(error)
+      console.error('EmailJS submission failed:', error)
       alert('Submission failed')
     } finally {
       setLoading(false)
@@ -141,6 +174,7 @@ export default function QuoteForm() {
             aria-label="Airport transfer booking request"
           >
             <input type="hidden" name="form-name" value="airport-transfer-request" />
+            <input type="hidden" name="campaignType" value="Airport Transportation" />
             <div className="form-grid form-grid-2">
               <div className="form-field">
                 <label htmlFor="name" className="form-label">Full Name <span aria-hidden="true">*</span></label>
