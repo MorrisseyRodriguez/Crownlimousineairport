@@ -166,8 +166,8 @@ export default function QuoteForm() {
 
             <div className="quote-direct">
               <p className="quote-direct-label">Call Or Text Us Directly</p>
-              <a href="tel:+13105551994" className="quote-phone">
-                (310) 555-1994
+              <a href="tel:+13109478898" className="quote-phone">
+                (310) 947-8898
               </a>
             </div>
           </div>

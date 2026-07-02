@@ -135,7 +135,7 @@ export default function MobileCTA() {
 
         {/* Call */}
         <a
-          href="tel:+13105550000"
+          href="tel:+13109478898"
           className="mob-bar-btn"
           aria-label="Call us"
         >
